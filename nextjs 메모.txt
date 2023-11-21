@@ -1,0 +1,183 @@
+Next.js 프로젝트 초기화
+npx create-next-app@latest
+
+프로젝트 생성
+C:\학교숙제\2023-2\고웹프\nextjs
+npx create-next-app@latest
+
+
+프로젝트 콘솔에서 실행시키기...
+npm run dev
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+react.js: 원할때만 부르고 원할때 사용하는 라이브러리.사용하고 싶을때만 사용함
+framework 내 코드를 불러오는 것. 코드를 적절한 위치에 적기만 하면 framework가 자동적으로 가져옴. 특정한 규칙에 따라야함. 추상화 시킨 형태
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+유저에게 보여주고 싶다면 export default function 함수명(){}
+ex) export default function Home(){
+    return "hi";
+}
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+URL의 이름 = src/pages/파일명
+앱에 있는 페이지들이 미리 렌더링된다!
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+react.js를 프론트엔드 안에서 실행하는 것: hydration
+index.js
+import {useState} from 'react';
+
+export default function Home(){
+    const [counter, setCounter] = useState(0); 
+    return (
+        <div>
+            <h1>Hello {counter}</h1>
+            <button onClick={() => setCounter((prev) =>prev+1)}>+</button>
+        </div>
+    )
+    
+}
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+import Link from "next/link"; 매 페이지 이동할 때 마다 새로고침 하는거 방지
+속도 좀 더 빠르게
+import Link from "next/link";
+import { useRouter } from "next/router";
+
+export default function NavBar(){
+    const router = useRouter();
+    console.log(router);
+
+    return(
+    <nav>   
+        <Link legacyBehavior href="/">
+            <a style={{color: router.pathname ==="/" ? "red" : "blue"}}>Home</a>
+        </Link>
+        
+        <Link legacyBehavior href="/about">
+            <a style={{color: router.pathname ==="/about" ? "red" : "blue"}}>About</a>
+        </Link>
+    </nav>
+    );
+    
+}
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+NavBar.module.css
+.nav {
+    display: flex;
+    justify-content : space-between;
+    background-color: tomato;
+}
+
+NavBar.js
+import styles from "./NavBar.module.css"; 
+    <nav className={styles.nav}>   
+
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+NavBar.js
+import Link from "next/link";
+import { useRouter } from "next/router";
+import styles from "./NavBar.module.css"; 
+
+export default function NavBar(){
+    const router = useRouter();
+    console.log(router);
+
+    return(
+    <nav>   
+        <Link href="/" legacyBehavior>
+            <a
+              className={`${styles.link} ${
+                router.pathname === "/" ? styles.active: ""
+            }`}
+            >
+                Home
+            </a>
+        </Link>
+        
+        <Link href="/about" legacyBehavior>
+        <a className={[
+            styles.link,
+            router.pathname === "/about" ? styles.active: "",
+        ].join(" ")}
+        >
+            About
+            </a>
+        </Link>
+    </nav>
+    );
+    
+}
+
+NarBar.module.css
+.link{
+    text-decoration: none;
+}
+
+
+.active{
+    color: tomato;
+}
+
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+추천 style 방법!!!!!!!!!
+
+import Link from "next/link";
+import { useRouter } from "next/router";
+
+export default function NavBar(){
+    const router = useRouter();
+    console.log(router);
+
+    return(
+    <nav>   
+        <Link href="/" legacyBehavior>
+            <a className={router.pathname ==="/"? "active": ""}>Home</a>
+        </Link>
+        
+        <Link href="/about" legacyBehavior>
+            <a className={router.pathname ==="/about"? "active": ""}>about</a>
+        </Link>
+        <style jsx>{`
+            nav{
+                background-color: tomato;
+            }
+            a{
+                text-decoration: none;
+            }
+
+            .active{
+                color: yellow;
+            }
+        `}</style>
+    </nav>
+    );
+    
+}
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+글로벌 스타일 적용 index.js에서
+            <style jsx global>{`
+
+혹은 page 폴더 안에 _app.js 생성
+import NavBar from "../../components/NavBar";
+
+export default function App({Component, pageProps}){
+    return(
+        <>
+            <NavBar/>
+            <Component {...pageProps}/>
+            <style jsx global>{`
+                a{
+                    color:white;
+                }
+            `}</style>
+        </>
+    );
+} 
