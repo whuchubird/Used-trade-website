@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 
-const Home: NextPage = () => {
+const Loved: NextPage = () => {
   return (
     <div className="flex flex-col space-y-5 py-10">
       {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((_, i) => (
@@ -72,7 +72,7 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home
+export default Loved
 
 /*import Image from 'next/image'
 import { Inter } from 'next/font/google'
