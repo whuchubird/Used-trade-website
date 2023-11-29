@@ -73,7 +73,7 @@ const Profile: NextPage = () => {
         <div className="flex space-x-4 items-center">
           <div className="w-12 h-12 rounded-full bg-slate-500"/>
           <div>
-            <h4 className="text-sm font-bold text-gray-800">니꼬</h4>
+            <h4 className="text-sm font-bold text-gray-800">고웹</h4>
             <div className="flex items-center">
               {/*<svg
                 className="text-yellow-400 h-5 w-5"
@@ -125,12 +125,7 @@ const Profile: NextPage = () => {
         </div>
         <div className="mt-4 text-gray-600 text-sm">
           <p>
-            Normally, both your asses would be dead as fucking fried chicken,
-            but you happen to pull this shit while I&apos;m in a transitional
-            period so I don&apos;t wanna kill you, I wanna help you. But I
-            can&apos;t give you this case, it don&apos;t belong to me. Besides,
-            I&apos;ve already been through too much shit this morning over this
-            case to hand it over to your dumb ass.
+            자아아기이이이소오오개애애입니다아아--------------------------------------------------------
           </p>
         </div>
       </div>
