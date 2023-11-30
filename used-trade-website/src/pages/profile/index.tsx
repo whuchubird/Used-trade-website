@@ -50,7 +50,7 @@ const Profile: NextPage = () => {
           <span className=" mt-2 text-sm font-medium text-gray-700">구매내역</span>
         </div>*/}
         <div className="flex flex-col items-center">
-          <div className="w-14 h-14 text-white bg-orange-500 rounded-full flex items-center justify-center">
+          <div className="w-14 h-14 text-white bg-green-500 rounded-full flex items-center justify-center">
             <svg
               className="w-6 h-6"
               fill="none"
