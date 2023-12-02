@@ -1,3 +1,29 @@
+터미널1
+pscale connect used-trade-website
+
+터미널2
+npx prisma generate
+npx prisma studio
+
+터미널3
+npm run dev
+
+
+prisma 다시 하려면..
+pscale auth login
+pscale database create used-trade-website --region gcp-asia-northeast3
+npm install @prisma/client
+
+prisma 업데이트
+npx prisma db push
+npx prisma generate // 클라이언트 새로 생성
+npx prisma studio // 확인하기
+		
+
+
+
+
+
 Next.js 프로젝트 초기화
 npx create-next-app@latest
 
@@ -8,6 +34,28 @@ npx create-next-app@latest
 
 프로젝트 콘솔에서 실행시키기...
 npm run dev
+
+
+비주얼코드내 Prisma 다운받기(자바스크립트(or 타임스크립트)와 데이터베이스 사이의 다리(번역기 같은 느낌))
+npm i prisma -D
+
+push하기
+pscale connect used-trade-website: url을 얻어서 컴퓨터와 planetscale 사이에 보안 tunnel 제작
+npx prisma db push
+
+tmi) npx prisma studio: 데이터베이스 관리자 패널 보기
+npm install @prisma/client: client 설치
+npx prisma generate: node_modules/@prisma/client에 prismaclient를 타입스크립트 형태로 생성
+
+
+form 생성
+npm i react-hook-form
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+NexJS: 풀스택(프론트엔드, 백엔드) 앱을 만들기 위한 프레임워크
+백엔드는 GraphQL, REST를 사용해 NodeJS로 만들었다
+
 
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
