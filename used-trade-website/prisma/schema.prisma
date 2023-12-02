@@ -17,10 +17,22 @@ datasource db {
 //autoincrement() : 자동으로 증가하는 숫자
 model User {
   id        Int      @id @default(autoincrement())
-  name      String
+  name      String?
   user_id   String   @unique
   password  String
-  email     String   @unique
+  email     String?  @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  tokens    Token[]
+}
+
+model Token {
+  id        Int      @id @default(autoincrement())
+  payload   String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    Int //이 userId가 데이터베이스에 들어감
+
+  @@index([userId]) //수동으로 인덱스 추가
 }
