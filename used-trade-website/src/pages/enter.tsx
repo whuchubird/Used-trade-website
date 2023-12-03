@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import useMutation from '@libs/client/useMutation'
-//import Input from '@components/input'
+import Input from '@components/input'
+import { useRouter } from 'next/router'
 
 interface EnterForm {
   name?: string
@@ -11,27 +12,71 @@ interface EnterForm {
   password?: string
 }
 
+interface MutationResult {
+  ok: boolean
+}
+
+interface TokenForm {
+  token: string
+}
+
 export default function Enter() {
-  const [enter, { loading, data, error }] = useMutation('/api/users/enter')
+  const [enter, { loading, data, error }] =
+    useMutation<MutationResult>('/api/users/enter')
+  const [confirmToken, { loading: tokenLoading, data: tokenData }] =
+    useMutation<MutationResult>('/api/users/confirm')
+
   const [submitting, setSubmitting] = useState(false)
   const { register, watch, handleSubmit, reset } = useForm<EnterForm>()
+  const {
+    register: tokenRegister,
+    handleSubmit: tokenHandleSubmit,
+    getValues: tokenGetValues,
+  } = useForm<TokenForm>()
   const [method, setMethod] = useState<'Personal'>('Personal')
   const onPersonalClick = () => setMethod('Personal')
+
   const onValid = (validForm: EnterForm) => {
     if (loading) return
     enter(validForm)
-    /*setSubmitting(true)
-    fetch('/api/users/enter', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).then(() => {
-      setSubmitting(false)
-    })*/
+    console.log('test1')
   }
-  console.log(loading, data, error)
+  const onTokenValid = async (validForm: TokenForm) => {
+    console.log('test2')
+    if (tokenLoading) return
+    confirmToken(validForm)
+    console.log('토큰 값:', tokenGetValues('token'))
+  }
+  const router = useRouter()
+  useEffect(() => {
+    if (tokenData?.ok) {
+      router.push('/')
+    }
+  }, [tokenData, router])
+
+  /*
+  const onValid = (validForm: EnterForm) => {
+    if (loading) return
+    enter(validForm)
+    //enter({
+    //user_id: validForm.user_id,
+    //password: validForm.password,
+    //})
+
+    // 토큰 확인
+    onTokenValid({
+      token: tokenGetValues('token'),
+    })
+  }
+
+  const onTokenValid = (validForm: TokenForm) => {
+    if (tokenLoading) return
+    confirmToken(validForm)
+    console.log('토큰 값:', validForm.token)
+  }*/
+
+  //console.log(loading, data, error)
+  console.log(data)
 
   return (
     <div className="mt-16">
@@ -50,8 +95,43 @@ export default function Enter() {
             </button>
           </div>
         </div>
-        <form onSubmit={handleSubmit(onValid)} className="flex flex-col mt-8">
-          {/*<label className="text-sm font-medium text-gray-700">이름</label>
+
+        {data?.ok ? (
+          <form
+            onSubmit={tokenHandleSubmit(onTokenValid)}
+            className="flex flex-col mt-8"
+          >
+            <label className="text-sm font-medium text-gray-700">토큰</label>
+            <div className="mt-1">
+              <input
+                {...tokenRegister('token', {
+                  required: true,
+                })}
+                type="text"
+                className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className="mt-5 bg-green-500 hover:bg-green-600 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-green-500 focus:outline-none"
+            >
+              {tokenLoading ? 'Loading...' : 'Submit'}
+            </button>
+          </form>
+        ) : (
+          <>
+            {/*data?.ok ? (
+          <form onSubmit={tokenHandleSubmit(onTokenValid)}>
+            <h5>Loading...</h5>
+          </form>
+        ) : null*/}
+
+            <form
+              onSubmit={handleSubmit(onValid)}
+              className="flex flex-col mt-8"
+            >
+              {/*<label className="text-sm font-medium text-gray-700">이름</label>
           <div className="mt-1">
             <input
               {...register('name')}
@@ -61,31 +141,35 @@ export default function Enter() {
             />
           </div>*/}
 
-          <label className="text-sm font-medium text-gray-700">아이디</label>
-          <div className="mt-1">
-            <input
-              {...register('user_id', {
-                required: true,
-              })}
-              type="user_id"
-              className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
-              required
-            />
-          </div>
+              <label className="text-sm font-medium text-gray-700">
+                아이디
+              </label>
+              <div className="mt-1">
+                <input
+                  {...register('user_id', {
+                    required: true,
+                  })}
+                  type="user_id"
+                  className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                  required
+                />
+              </div>
 
-          <label className="text-sm font-medium text-gray-700">비밀번호</label>
-          <div className="mt-1">
-            <input
-              {...register('password', {
-                required: true,
-              })}
-              type="password"
-              className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
-              required
-            />
-          </div>
+              <label className="text-sm font-medium text-gray-700">
+                비밀번호
+              </label>
+              <div className="mt-1">
+                <input
+                  {...register('password', {
+                    required: true,
+                  })}
+                  type="password"
+                  className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                  required
+                />
+              </div>
 
-          {/*<label className="text-sm font-medium text-gray-700">
+              {/*<label className="text-sm font-medium text-gray-700">
             이메일 주소
           </label>
           <div className="mt-1">
@@ -98,10 +182,12 @@ export default function Enter() {
               required
             />
             </div>*/}
-          <button className="mt-5 bg-green-500 hover:bg-green-600 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-green-500 focus:outline-none">
-            {submitting ? 'Loading...' : '로그인하기'}
-          </button>
-        </form>
+              <button className="mt-5 bg-green-500 hover:bg-green-600 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-green-500 focus:outline-none">
+                {submitting ? 'Loading...' : '로그인하기'}
+              </button>
+            </form>
+          </>
+        )}
       </div>
     </div>
   )
