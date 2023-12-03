@@ -29,7 +29,7 @@ model User {
 model Token {
   id        Int      @id @default(autoincrement())
   payload   String   @unique
-  user      User     @relation(fields: [userId], references: [id])
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade) //부모 삭제시 자식도 삭제됌
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   userId    Int //이 userId가 데이터베이스에 들어감
