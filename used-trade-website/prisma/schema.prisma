@@ -36,3 +36,11 @@ model Token {
 
   @@index([userId]) //수동으로 인덱스 추가
 }
+
+model Product {
+  id        Int      @id @default(autoincrement())
+  image     String
+  name      String
+  price     Int
+  siteUrl   String
+}

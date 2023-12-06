@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import withHandler, { ResponseType } from '@libs/server/withHandler'
+import { cls } from '@libs/utils'
 import client from 'libs/server/client'
 import bcrypt from 'bcrypt'
 
@@ -115,4 +116,5 @@ async function handler(
     res.json({ hello: true }) 와 동치
   }*/
 //POST 요청인지 아닌지에 확인한 후 handler 를 실행
-export default withHandler('POST', handler)
+
+export default withHandler({ method: 'POST', handler, isPrivate: false })

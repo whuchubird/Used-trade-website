@@ -64,6 +64,9 @@ npm i react-hook-form
 NexJS: 풀스택(프론트엔드, 백엔드) 앱을 만들기 위한 프레임워크
 백엔드는 GraphQL, REST를 사용해 NodeJS로 만들었다
 
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+SWR 설치
+npm i swr --legacy-peer-deps
 
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
