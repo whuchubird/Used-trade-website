@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import useMutation from '@libs/client/useMutation'
-//import Input from '@components/input'
+import Input from '@components/input'
 import { useRouter } from 'next/router'
 
-interface EnterForm {
-  //name?: string
+interface RegisterForm {
+  name: string
   user_id: string
-  //user_password?: string
-  //email?: string
+  email: string
   password: string
 }
 
@@ -22,41 +21,39 @@ interface TokenForm {
 }
 
 export default function Enter() {
-  const [enter, { loading, data, error }] =
-    useMutation<MutationResult>('/api/users/enter2')
+  const [enter, { loading, data, error }] = useMutation<MutationResult>(
+    '/api/users/register',
+  )
   const [confirmToken, { loading: tokenLoading, data: tokenData }] =
     useMutation<MutationResult>('/api/users/confirm')
 
   const [submitting, setSubmitting] = useState(false)
-  const { register, watch, handleSubmit, reset } = useForm<EnterForm>()
+  const { register, watch, handleSubmit, reset } = useForm<RegisterForm>()
   const {
     register: tokenRegister,
     handleSubmit: tokenHandleSubmit,
     getValues: tokenGetValues,
   } = useForm<TokenForm>()
   const [method, setMethod] = useState<'Personal'>('Personal')
-  const onPersonalClick = () => setMethod('Personal')
-
-  const [modalMessage, setModalMessage] = useState('')
-  const [showModal, setShowModal] = useState(false)
-
   const [errorMessage, setErrorMessage] = useState('')
+
+  const onPersonalClick = () => setMethod('Personal')
   const router = useRouter()
 
-  const onValid = async (validForm: EnterForm) => {
+  const onValid = async (validForm: RegisterForm) => {
     if (loading) return
 
     try {
-      const response = await enter(validForm) //api/users/enter2로 데이터 전송후 확인받기
+      const response = await enter(validForm) //api/users/register로 데이터 전송후 확인받기
 
       if (response.ok) {
-        //아이디 비번 잘 맞음!
-        // 로그인 성공
-        router.push('/')
+        //유일한 id, 이메일이고 계정 잘 생성됌
+        alert(validForm.name + '님, 회원가입이 완료되었습니다.')
+        router.push('/enter')
       } else {
         // 로그인 실패
-        console.error('로그인 실패:', response.error) // 콘솔에 에러 출력
-        setErrorMessage('아이디나 비밀번호가 일치하지 않습니다.')
+        console.error('회원가입 실패:', response.error) // 콘솔에 에러 출력
+        setErrorMessage('이미 있는 아이디 혹은 이메일 주소입니다.')
       }
     } catch (error) {
       console.error('기타 에러 발생:', error)
@@ -71,17 +68,10 @@ export default function Enter() {
   }
 
   useEffect(() => {
-    if (data?.ok) {
-      // 아이디 비번 데이터 로드됌
-      router.push('/')
-    } else if (error) {
-      console.error('서버 오류:', error)
+    if (tokenData?.ok) {
+      router.push('/enter')
     }
-  }, [data, error, router])
-
-  const goto_Resister = () => {
-    router.push('/register')
-  }
+  }, [tokenData, router])
 
   /*
   const onValid = (validForm: EnterForm) => {
@@ -120,29 +110,19 @@ export default function Enter() {
               className="pb-4 border-b-2 text-orange-400 font-medium"
               onClick={onPersonalClick}
             >
-              회원 정보 입력
+              회원 가입
             </button>
           </div>
         </div>
 
         {data?.ok ? (
           <form onSubmit={handleSubmit(onValid)} className="flex flex-col mt-8">
-            <label className="text-sm font-medium text-gray-700">토큰</label>
-            <div className="mt-1">
-              <input
-                {...tokenRegister('token', {
-                  required: true,
-                })}
-                type="text"
-                className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
-                required
-              />
-            </div>
-            <button
-              type="submit"
-              className="mt-5 bg-green-500 hover:bg-green-600 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-green-500 focus:outline-none"
-            >
-              {tokenLoading ? 'Loading...' : 'Submit'}
+            <label className="text-sm font-medium text-gray-700">
+              베짱이 마켓에 정상적으로 가입되었습니다!
+            </label>
+
+            <button className="mt-5 bg-green-500 hover:bg-green-600 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-green-500 focus:outline-none">
+              로그인 페이지로 가기!
             </button>
           </form>
         ) : (
@@ -195,6 +175,32 @@ export default function Enter() {
                 />
               </div>
 
+              <label className="text-sm font-medium text-gray-700">이름</label>
+              <div className="mt-1">
+                <input
+                  {...register('name', {
+                    required: true,
+                  })}
+                  type="name"
+                  className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                  required
+                />
+              </div>
+
+              <label className="text-sm font-medium text-gray-700">
+                이메일 주소
+              </label>
+              <div className="mt-1">
+                <input
+                  {...register('email', {
+                    required: true,
+                  })}
+                  type="email"
+                  className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                  required
+                />
+              </div>
+
               {/*<label className="text-sm font-medium text-gray-700">
             이메일 주소
           </label>
@@ -211,13 +217,6 @@ export default function Enter() {
               <button className="mt-5 bg-green-500 hover:bg-green-600 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-green-500 focus:outline-none">
                 {submitting ? 'Loading...' : '로그인하기'}
               </button>
-              <button
-                onClick={goto_Resister}
-                className="mt-5 bg-green-500 hover:bg-green-600 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-green-500 focus:outline-none"
-              >
-                {submitting ? 'Loading...' : '회원가입 하러 가기'}
-              </button>
-
               {errorMessage && (
                 <h4 className="mt-2 text-red-600">{errorMessage}</h4>
               )}

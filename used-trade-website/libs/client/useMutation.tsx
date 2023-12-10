@@ -5,7 +5,10 @@ interface UseMutationState<T> {
   data?: T
   error?: Object
 }
-type UseMutationResult<T> = [(data: any) => void, UseMutationState<T>]
+type UseMutationResult<T = any> = [
+  (data: any) => Promise<T>,
+  { loading: boolean; data: T | undefined; error: any | undefined },
+]
 
 //api로 데이터를 POST하기
 export default function useMutation<T = any>(
@@ -21,28 +24,27 @@ export default function useMutation<T = any>(
   const [data, setData] = useState<undefined | any>(undefined)
   const [error, setError] = useState<undefined | any>(undefined)
 
-  function mutation(data: any) {
+  const mutation = async (data: any) => {
     setLoading(true)
 
-    console.log('data1', data)
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
 
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json().catch(() => {}))
-      .then((responseData) => {
-        setData(responseData)
-        setLoading(false)
-        console.log('data2', responseData)
-      })
-      .catch((error) => {
-        setError(error)
-        setLoading(false)
-      })
+      const responseData = await response.json()
+      setData(responseData)
+      setLoading(false)
+      return responseData // Add this line
+    } catch (error) {
+      setError(error)
+      setLoading(false)
+      throw error
+    }
   }
 
   return [mutation, { loading, data, error }]

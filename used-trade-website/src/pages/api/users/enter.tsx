@@ -1,8 +1,12 @@
-import { NextApiRequest, NextApiResponse } from 'next'
+import { NextApiRequest, NextApiResponse, NextApiHandler } from 'next'
 import withHandler, { ResponseType } from '@libs/server/withHandler'
-import { cls } from '@libs/utils'
+import { checkAccountExistence, cls } from '@libs/utils'
 import client from 'libs/server/client'
 import bcrypt from 'bcrypt'
+import { PrismaClient } from '@prisma/client'
+
+//일단 쓸일x
+//enter2로 갈아엎었음
 
 //export default async function handler(
 async function handler(
@@ -15,6 +19,14 @@ async function handler(
   const { user_id, password } = req.body
   //const user 안한 이유: 아이디 비번쓰기 때문
   const payload = Math.floor(10000 + Math.random() * 90000) + ''
+  const prisma = new PrismaClient()
+
+  if (!user_id || !password) {
+    return res
+      .status(400)
+      .json({ ok: false, error: '아이디나 비밀번호가 비어 있습니다.' })
+  }
+
   /*const user = await client.user.upsert({
     where: {
       user_id: String(user_id),
