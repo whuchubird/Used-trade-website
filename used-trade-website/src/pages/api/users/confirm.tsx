@@ -1,3 +1,5 @@
+//토큰 확인용인데 토큰 파기하면서 쓸일x
+
 import { NextApiRequest, NextApiResponse } from 'next'
 import withHandler, { ResponseType } from '@libs/server/withHandler'
 import client from '@libs/server/client'

@@ -29,7 +29,7 @@ export default function withHandler({
       return res.status(401).json({ ok: false, error: '로그인 해주세요.' })
     }
     try {
-      await handler(req, res) //handler 요청
+      await handler(req, res) //핸들러 요청
     } catch (error: any) {
       console.error(error)
       return res
