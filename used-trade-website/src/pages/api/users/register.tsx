@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { checkIdExistence, createUser } from '@libs/utils' // 실제 위치에 따라 경로가 다를 수 있습니다.
+import { checkIdExistence, createUser } from '@libs/utils'
 
 export default async function handler(
   req: NextApiRequest,

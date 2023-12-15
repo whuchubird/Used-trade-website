@@ -107,7 +107,7 @@ export default function Enter() {
           <h5 className="text-sm text-gray-500 font-medium">Enter using:</h5>
           <div className="grid pb-4 border-b w-full mt-8 gap-16">
             <button
-              className="pb-4 border-b-2 text-orange-400 font-medium"
+              className="pb-4 border-b-2 text-green-400 font-medium"
               onClick={onPersonalClick}
             >
               회원 가입
@@ -142,7 +142,7 @@ export default function Enter() {
             <input
               {...register('name')}
               type="name"
-              className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+              className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
               required
             />
           </div>*/}
@@ -156,7 +156,7 @@ export default function Enter() {
                     required: true,
                   })}
                   type="user_id"
-                  className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                  className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
                   required
                 />
               </div>
@@ -170,7 +170,7 @@ export default function Enter() {
                     required: true,
                   })}
                   type="password"
-                  className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                  className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
                   required
                 />
               </div>
@@ -182,7 +182,7 @@ export default function Enter() {
                     required: true,
                   })}
                   type="name"
-                  className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                  className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
                   required
                 />
               </div>
@@ -196,7 +196,7 @@ export default function Enter() {
                     required: true,
                   })}
                   type="email"
-                  className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                  className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
                   required
                 />
               </div>
@@ -210,7 +210,7 @@ export default function Enter() {
                 required: true,
               })}
               type="email"
-              className="type="email" className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+              className="type="email" className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
               required
             />
             </div>*/}
@@ -218,7 +218,7 @@ export default function Enter() {
                 {submitting ? 'Loading...' : '로그인하기'}
               </button>
               {errorMessage && (
-                <h4 className="mt-2 text-red-600">{errorMessage}</h4>
+                <h4 className="mt-2 text-green-500">{errorMessage}</h4>
               )}
             </form>
           </>
