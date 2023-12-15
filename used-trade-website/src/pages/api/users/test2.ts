@@ -7,9 +7,15 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
+  const { inputValue } = req.body
+
   const browser = await puppeteer.launch({ headless: 'new' })
   const page = await browser.newPage()
-  await page.goto('https://m.bunjang.co.kr/search/products?q=메이플')
+  await page.goto(
+    `https://m.bunjang.co.kr/search/products?q=${encodeURIComponent(
+      inputValue,
+    )}`,
+  )
 
   const productElements = await page.$x(
     '//*[@id="root"]/div/div/div[4]/div/div[4]/div/div',
