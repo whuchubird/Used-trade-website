@@ -14,7 +14,7 @@ export default async function handler(
   const productElements = await page.$x(
     '//*[@id="root"]/div/div/div[4]/div/div[4]/div/div',
   )
-  const results = []
+  const productData_Thunder = []
 
   for (const productElement of productElements) {
     const imageElement = await productElement.$x('./a/div[1]/img')
@@ -39,10 +39,15 @@ export default async function handler(
       linkElement[0] as ElementHandle<HTMLAnchorElement>,
     )
 
-    results.push({ productImage, productName, productPrice, productLink })
+    productData_Thunder.push({
+      productImage,
+      productName,
+      productPrice,
+      productLink,
+    })
   }
 
   await browser.close()
 
-  res.status(200).json(results)
+  res.status(200).json(productData_Thunder)
 }
