@@ -7,10 +7,10 @@ interface LayoutProps {
   title?: string
   canGoBack?: boolean
   hasTabBar?: boolean
-  searchData: any
-  setSearchData: React.Dispatch<React.SetStateAction<any>>
-  searchData2: any
-  setSearchData2: React.Dispatch<React.SetStateAction<any>>
+  searchData?: any
+  setSearchData?: React.Dispatch<React.SetStateAction<any>>
+  searchData2?: any
+  setSearchData2?: React.Dispatch<React.SetStateAction<any>>
   children: React.ReactNode
 }
 
@@ -42,7 +42,9 @@ export default function Layout({
 
     const data2 = await response2.json()
     console.log(data2)
-    setSearchData2(data2) // index.tsx의 상태를 업데이트
+    if (setSearchData2) {
+      setSearchData2(data2)
+    } // index.tsx의 상태를 업데이트
 
     const response = await fetch('/api/users/test', {
       method: 'POST',
@@ -54,7 +56,9 @@ export default function Layout({
 
     const data = await response.json()
     console.log(data)
-    setSearchData(data) // index.tsx의 상태를 업데이트
+    if (setSearchData) {
+      setSearchData(data)
+    } // index.tsx의 상태를 업데이트
   }
 
   useEffect(() => {
