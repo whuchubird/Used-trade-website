@@ -8,33 +8,40 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const response: AxiosResponse = await axios.get(
-    'https://web.joongna.com/search/메이플',
-  )
-  const html: string = response.data
-  const $: CheerioAPI = cheerio.load(html)
+  const { inputValue } = req.body
 
-  let productData_Nara: {
-    productImage: string
-    productName: string
-    productPrice: string
-    productLink: string
-  }[] = []
+  try {
+    const response: AxiosResponse = await axios.get(
+      `https://web.joongna.com/search/${encodeURIComponent(inputValue)}`,
+    )
 
-  $('ul.search-results > li').each((_index: number, element: Element) => {
-    const productName: string = $(element).find('h2').text()
-    const productImage: string = $(element).find('img').attr('src') || ''
-    const productUrl: string =
-      'https://web.joongna.com' + ($(element).find('a').attr('href') || '')
-    const productPrice: string = $(element).find('.font-semibold').text()
+    const html: string = response.data
+    const $: CheerioAPI = cheerio.load(html)
 
-    productData_Nara.push({
-      productName: productName,
-      productImage: productImage,
-      productLink: productUrl,
-      productPrice: productPrice,
+    let productData_Nara: {
+      productImage: string
+      productName: string
+      productPrice: string
+      productLink: string
+    }[] = []
+
+    $('ul.search-results > li').each((_index: number, element: Element) => {
+      const productName: string = $(element).find('h2').text()
+      const productImage: string = $(element).find('img').attr('src') || ''
+      const productUrl: string =
+        'https://web.joongna.com' + ($(element).find('a').attr('href') || '')
+      const productPrice: string = $(element).find('.font-semibold').text()
+
+      productData_Nara.push({
+        productName: productName,
+        productImage: productImage,
+        productLink: productUrl,
+        productPrice: productPrice,
+      })
     })
-  })
 
-  res.status(200).json(productData_Nara)
+    res.status(200).json(productData_Nara)
+  } catch (error) {
+    console.error(error)
+  }
 }
