@@ -17,12 +17,11 @@ export default function Layout({
   children,
 }: LayoutProps) {
   const [inputValue, setInputValue] = useState('')
-
   const handleInputChange = (e) => {
     setInputValue(e.target.value)
   }
 
-  const handleButtonClick = () => {
+  function handleButtonClick() {
     console.log('입력한 단어:', inputValue)
   }
 

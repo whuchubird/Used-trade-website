@@ -14,11 +14,11 @@ export default async function handler(
   const html: string = response.data
   const $: CheerioAPI = cheerio.load(html)
 
-  let productData: {
-    name: string
-    image: string
-    url: string
-    price: string
+  let productData_Nara: {
+    productImage: string
+    productName: string
+    productPrice: string
+    productLink: string
   }[] = []
 
   $('ul.search-results > li').each((_index: number, element: Element) => {
@@ -28,13 +28,13 @@ export default async function handler(
       'https://web.joongna.com' + ($(element).find('a').attr('href') || '')
     const productPrice: string = $(element).find('.font-semibold').text()
 
-    productData.push({
-      name: productName,
-      image: productImage,
-      url: productUrl,
-      price: productPrice,
+    productData_Nara.push({
+      productName: productName,
+      productImage: productImage,
+      productLink: productUrl,
+      productPrice: productPrice,
     })
   })
 
-  res.status(200).json(productData)
+  res.status(200).json(productData_Nara)
 }
