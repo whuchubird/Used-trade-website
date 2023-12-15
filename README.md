@@ -34,3 +34,6 @@ npx prisma generate: node_modules/@prisma/client에 prismaclient를 타입스크
 
 SWR 설치
 npm i swr --legacy-peer-deps
+
+iron-sesson 다운로드
+npm install iron-session@6.3.1

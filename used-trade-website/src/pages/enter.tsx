@@ -28,7 +28,7 @@ export default function Enter() {
 
   const [submitting, setSubmitting] = useState(false)
   const { register, watch, handleSubmit, reset } = useForm<EnterForm>()
-  const {
+  const {     //폐기
     register: tokenRegister,
     handleSubmit: tokenHandleSubmit,
     getValues: tokenGetValues,
