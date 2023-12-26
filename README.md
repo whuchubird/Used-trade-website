@@ -6,27 +6,27 @@
 ### 사전 설치 리스트
 콘솔상 주소가 GitHub\Used-trade-website\used-trade-website인지 확인하기
 
-* 터미널1 관련
-1. 비주얼코드 콘솔에서 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-2. 비주얼코드 콘솔에서 irm get.scoop.sh | iex
-3. 비주얼코드 콘솔에서 scoop bucket add pscale https://github.com/planetscale/scoop-bucket.git
-4. 비주얼코드 콘솔에서 scoop install pscale mysql
-5. 비주얼코드 콘솔에서 pscale auth login 입력하고 planetscale 로그인
+1. 터미널1 관련
+* 비주얼코드 콘솔에서 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+* 비주얼코드 콘솔에서 irm get.scoop.sh | iex
+* 비주얼코드 콘솔에서 scoop bucket add pscale https://github.com/planetscale/scoop-bucket.git
+* 비주얼코드 콘솔에서 scoop install pscale mysql
+* 비주얼코드 콘솔에서 pscale auth login 입력하고 planetscale 로그인
 
 
-* 터미널2 관련
-1. 비주얼코드내 콘솔에서 Prisma 다운받기(npm i prisma -D)
-2. 비주얼코드 콘솔에서 npm install @prisma/client 입력
+2.  터미널2 관련
+* 비주얼코드내 콘솔에서 Prisma 다운받기(npm i prisma -D)
+* 비주얼코드 콘솔에서 npm install @prisma/client 입력
 
 
-* 터미널3 관련
-1. node.js 설치(https://nodejs.org/en)
-3. npm install next 콘솔에 입력하여 설치
+3. 터미널3 관련
+* node.js 설치(https://nodejs.org/en)
+* npm install next 콘솔에 입력하여 설치
 
 
-* 기타 관련
-1. SWR 설치(npm i swr --legacy-peer-deps)
-2. iron-sesson 다운로드(npm install iron-session@6.3.1)
+4. 기타 관련
+* SWR 설치(npm i swr --legacy-peer-deps)
+* iron-sesson 다운로드(npm install iron-session@6.3.1)
 
 
 
