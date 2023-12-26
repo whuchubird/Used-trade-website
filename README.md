@@ -3,7 +3,7 @@
 ## 2023년 2학기 고급웹프로그래밍 프로젝트
 ## 21101160 강민재, 21101199 양효정 제작
 
-### 사전 설치 리스트
+## 사전 설치 리스트
 콘솔상 주소가 GitHub\Used-trade-website\used-trade-website인지 확인하기
 
 1. 터미널1 관련
@@ -31,12 +31,13 @@
 
 
 
-### 실행 환경
+## 실행 환경
 * 비주얼 코드
 * 비주얼 코드 내의 기본적인 콘솔상 주소가 GitHub\Used-trade-website\used-trade-website
 
 
 
+## 실행 방법
 
 ### 터미널1
 pscale connect used-trade-website : url을 얻어서 컴퓨터와 planetscale 사이에 보안 tunnel 제작
@@ -48,7 +49,7 @@ npx prisma studio : 데이터베이스 관리자 패널 보기
 npm run dev : 웹사이트 실행하기
 
 
-### 웹사이트 사용 방법
+## 웹사이트 사용 방법
 1. localhost:3000/register에서 회원가입 진행. 만약 이미 존재하는 아이디/이메일주소라면 오류 메세지 생성
 1. localhost:3000/enter에서 아이디 비번 입력
 2. npx prisma studio에서 기존에 있는 아이디 비번이 일치하는지 확인함. 만일 일치하지 않는다면 오류메세지 생성
