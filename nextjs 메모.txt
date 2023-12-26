@@ -26,6 +26,7 @@ pscale database create used-trade-website --region gcp-asia-northeast3
 npm install @prisma/client
 
 
+npm install iron-session@6.3.1
 
 
 

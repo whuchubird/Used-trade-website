@@ -1,0 +1,7 @@
+제품 사진: //*[@id="root"]/div/div/div[4]/div/div[4]/div/div[1]/a/div[1]/img
+
+제품명: //*[@id="root"]/div/div/div[4]/div/div[4]/div/div[1]/a/div[2]/div[1]
+
+제품가격: //*[@id="root"]/div/div/div[4]/div/div[4]/div/div[1]/a/div[2]/div[2]/div[1]/text()
+
+제품사이트: //*[@id="root"]/div/div/div[4]/div/div[4]/div/div[1]/a
